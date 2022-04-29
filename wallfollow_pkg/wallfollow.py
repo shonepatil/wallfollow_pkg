@@ -76,6 +76,7 @@ class WallFollow(Node):
         # define the timer period for 0.5 seconds
         self.timer_period = 0.5
         # define the variable to save the received info
+        self.lidar_len = 0
         self.laser_right = 0
         self.laser_front = 0
         # create a Twist message
@@ -84,7 +85,7 @@ class WallFollow(Node):
 
     def move_turtlebot(self, msg):
         # Save the right laser scan info at 90°
-        self.lidar_len = len(msg.ranges)
+        self.lidar_len = len(list(msg.ranges))
         self.laser_right = msg.ranges[90]
         self.laser_front = msg.ranges[180]
 
