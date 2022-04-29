@@ -92,7 +92,7 @@ class WallFollow(Node):
     def motion(self):
         # print the data
         self.get_logger().info('lidar list length: "%s"' % str(self.lidar_len))
-        self.get_logger().info('right sensor: "%s"' % str(self.laser_right))
+        # self.get_logger().info('right sensor: "%s"' % str(self.laser_right))
         # self.get_logger().info('front sensor: "%s"' % str(self.laser_front))
         # Logic of move
         if self.laser_front < 0.5:
