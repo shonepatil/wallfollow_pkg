@@ -7,57 +7,57 @@ from geometry_msgs.msg import Twist
 from sensor_msgs.msg import LaserScan
 from rclpy.qos import ReliabilityPolicy, QoSProfile
 
-from custom_interfaces.action import Move
+# from custom_interfaces.action import Move
 from rclpy.action import ActionClient
 import time
 
 
-class MyActionClient(Node):
+# class MyActionClient(Node):
 
-    def __init__(self):
-        super().__init__('my_action_client')
-        self._action_client = ActionClient(self, Move, 'turtlebot3_as')
+#     def __init__(self):
+#         super().__init__('my_action_client')
+#         self._action_client = ActionClient(self, Move, 'turtlebot3_as')
 
-    def send_goal(self, secs):
-        goal_msg = Move.Goal()
-        goal_msg.secs = secs
+#     def send_goal(self, secs):
+#         goal_msg = Move.Goal()
+#         goal_msg.secs = secs
 
-        self._action_client.wait_for_server()
-        self._send_goal_future = self._action_client.send_goal_async(
-            goal_msg, feedback_callback=self.feedback_callback)
+#         self._action_client.wait_for_server()
+#         self._send_goal_future = self._action_client.send_goal_async(
+#             goal_msg, feedback_callback=self.feedback_callback)
 
-        self._send_goal_future.add_done_callback(self.goal_response_callback)
+#         self._send_goal_future.add_done_callback(self.goal_response_callback)
 
-    def goal_response_callback(self, future):
-        goal_handle = future.result()
-        if not goal_handle.accepted:
-            self.get_logger().info('Goal rejected :(')
-            return
+#     def goal_response_callback(self, future):
+#         goal_handle = future.result()
+#         if not goal_handle.accepted:
+#             self.get_logger().info('Goal rejected :(')
+#             return
 
-        self.get_logger().info('Goal accepted :)')
+#         self.get_logger().info('Goal accepted :)')
 
-        self._get_result_future = goal_handle.get_result_async()
-        self._get_result_future.add_done_callback(self.get_result_callback)
+#         self._get_result_future = goal_handle.get_result_async()
+#         self._get_result_future.add_done_callback(self.get_result_callback)
 
-    def get_result_callback(self, future):
-        result = future.result().result
-        self.get_logger().info('Result: {0}'.format(result.status))
-        rclpy.shutdown()
+#     def get_result_callback(self, future):
+#         result = future.result().result
+#         self.get_logger().info('Result: {0}'.format(result.status))
+#         rclpy.shutdown()
 
-    def feedback_callback(self, feedback_msg):
-        feedback = feedback_msg.feedback
-        self.get_logger().info(
-            'Received feedback: {0}'.format(feedback.feedback))
+#     def feedback_callback(self, feedback_msg):
+#         feedback = feedback_msg.feedback
+#         self.get_logger().info(
+#             'Received feedback: {0}'.format(feedback.feedback))
 
 
-def client_main(args=None):
-    rclpy.init(args=args)
+# def client_main(args=None):
+#     rclpy.init(args=args)
 
-    action_client = MyActionClient()
+#     action_client = MyActionClient()
 
-    action_client.send_goal(5)
+#     action_client.send_goal(5)
 
-    rclpy.spin(action_client)
+#     rclpy.spin(action_client)
 
 
 class WallFollow(Node):
