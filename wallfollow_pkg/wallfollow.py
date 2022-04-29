@@ -9,6 +9,7 @@ from rclpy.qos import ReliabilityPolicy, QoSProfile
 
 # from custom_interfaces.action import Move
 from rclpy.action import ActionClient
+import numpy as np
 import time
 
 
@@ -76,8 +77,8 @@ class WallFollow(Node):
         # define the timer period for 0.5 seconds
         self.timer_period = 0.5
         # define the variable to save the received info
-        self.lidar_len = 0
         self.laser_right = 0
+        self.laser_right_single = 0
         self.laser_front = 0
         # create a Twist message
         self.cmd = Twist()
@@ -85,14 +86,16 @@ class WallFollow(Node):
 
     def move_turtlebot(self, msg):
         # Save the right laser scan info at 90°
-        self.lidar_len = len(list(msg.ranges))
-        self.laser_right = msg.ranges[90]
+
+        self.laser_right = np.mean(msg.ranges[133:138])
+        self.laser_right_single = np.mean(msg.ranges[135])
         self.laser_front = msg.ranges[180]
 
     def motion(self):
         # print the data
-        self.get_logger().info('lidar list length: "%s"' % str(self.lidar_len))
-        # self.get_logger().info('right sensor: "%s"' % str(self.laser_right))
+
+        self.get_logger().info('right sensor avg: "%s"' % str(self.laser_right))
+        self.get_logger().info('right sensor single: "%s"' % str(self.laser_right_single))
         # self.get_logger().info('front sensor: "%s"' % str(self.laser_front))
         # Logic of move
         if self.laser_front < 0.5:
