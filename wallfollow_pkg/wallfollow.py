@@ -109,7 +109,7 @@ class WallFollow(Node):
             self.cmd.linear.x = 0.1
             self.cmd.angular.z = 0.2
         # Publishing the cmd_vel values to topipc
-        # self.publisher_.publish(self.cmd)
+        self.publisher_.publish(self.cmd)
 
 
 def main(args=None):
