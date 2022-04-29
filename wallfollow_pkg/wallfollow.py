@@ -88,15 +88,13 @@ class WallFollow(Node):
         # Save the right laser scan info at 90°
 
         self.laser_right = np.mean(msg.ranges[133:138])
-        self.laser_right_single = np.mean(msg.ranges[135])
-        self.laser_front = msg.ranges[180]
+        self.laser_front = np.mean(msg.ranges[403:408])
 
     def motion(self):
         # print the data
 
         self.get_logger().info('right sensor avg: "%s"' % str(self.laser_right))
-        self.get_logger().info('right sensor single: "%s"' % str(self.laser_right_single))
-        # self.get_logger().info('front sensor: "%s"' % str(self.laser_front))
+        self.get_logger().info('front sensor: "%s"' % str(self.laser_front))
         # Logic of move
         if self.laser_front < 0.5:
             self.cmd.linear.x = 0.04
