@@ -96,10 +96,7 @@ class WallFollow(Node):
         self.get_logger().info('right sensor avg: "%s"' % str(self.laser_right))
         self.get_logger().info('front sensor: "%s"' % str(self.laser_front))
         # Logic of move
-        if self.laser_front < 0.5:
-            self.cmd.linear.x = 0.00
-            self.cmd.angular.z = 0.3
-        elif self.laser_right > 0.4: # turn right
+        if self.laser_right > 0.4: # turn right
             self.cmd.linear.x = 0.1
             self.cmd.angular.z = 0.45
         elif self.laser_right < 0.4 and self.laser_right >= 0.2: # drive straight
