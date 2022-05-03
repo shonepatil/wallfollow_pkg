@@ -97,17 +97,17 @@ class WallFollow(Node):
         self.get_logger().info('front sensor: "%s"' % str(self.laser_front))
         # Logic of move
         if self.laser_front < 0.5:
-            self.cmd.linear.x = 0.04
+            self.cmd.linear.x = 0.00
             self.cmd.angular.z = 0.3
-        elif self.laser_right > 0.4:
+        elif self.laser_right > 0.4: # turn right
             self.cmd.linear.x = 0.1
-            self.cmd.angular.z = 0.3
-        elif self.laser_right < 0.4 and self.laser_right >= 0.2:
-            self.cmd.linear.x = 0.2
-            self.cmd.angular.z = 0.0
-        else:
+            self.cmd.angular.z = 0.45
+        elif self.laser_right < 0.4 and self.laser_right >= 0.2: # drive straight
             self.cmd.linear.x = 0.1
-            self.cmd.angular.z = -0.3
+            self.cmd.angular.z = -0.1
+        else: # turn left
+            self.cmd.linear.x = 0.1
+            self.cmd.angular.z = -0.5
         # Publishing the cmd_vel values to topipc
         self.publisher_.publish(self.cmd)
 
