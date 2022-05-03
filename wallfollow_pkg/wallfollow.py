@@ -101,13 +101,13 @@ class WallFollow(Node):
             self.cmd.angular.z = 0.3
         elif self.laser_right > 0.4:
             self.cmd.linear.x = 0.1
-            self.cmd.angular.z = -0.3
+            self.cmd.angular.z = 0.3
         elif self.laser_right < 0.4 and self.laser_right >= 0.2:
             self.cmd.linear.x = 0.2
             self.cmd.angular.z = 0.0
         else:
             self.cmd.linear.x = 0.1
-            self.cmd.angular.z = 0.3
+            self.cmd.angular.z = -0.3
         # Publishing the cmd_vel values to topipc
         self.publisher_.publish(self.cmd)
 
